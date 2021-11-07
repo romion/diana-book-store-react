@@ -1,10 +1,10 @@
 import {combineReducers} from "redux";
-import {userReducer} from "./userReducer";
-import {todoReducer} from "./todoReducer";
+import {bookReducer} from "./bookReducer";
+import {bookItemReducer} from "./bookItemReducer";
 
 export const rootReducer = combineReducers({
-    user: userReducer,
-    todo: todoReducer
+    book: bookReducer,
+    bookItem: bookItemReducer
 })
 
 export type RootState = ReturnType<typeof rootReducer>

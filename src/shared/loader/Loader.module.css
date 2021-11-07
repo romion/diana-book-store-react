@@ -1,0 +1,10 @@
+.loader {
+    margin: 20px 0;
+    padding: 30px 50px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.spin {
+    margin-right: 20px;
+}

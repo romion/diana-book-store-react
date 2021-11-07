@@ -1,7 +1,7 @@
-import * as UserActionCreators from './user'
-import * as TodoActionCreators from './todo'
+import * as BookActionCreators from './book'
+import * as BookItemActionCreators from './book-item'
 
 export default {
-    ...TodoActionCreators,
-    ...UserActionCreators
+    ...BookActionCreators,
+    ...BookItemActionCreators
 }
