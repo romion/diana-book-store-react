@@ -1,24 +1,17 @@
 import React, {useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import {Typography, Tag} from "antd";
-import {useTypedSelector} from "../../../hooks/useTypedSelector";
-import {useActions} from "../../../hooks/useActions";
 import './BookItem.css'
-import Loader from "../../../shared/loader/Loader";
+import Loader from "../../../shared/components/loader/Loader";
+import {bookAPI} from "../../../shared/services/BookService";
 
 const BookItem = () => {
     let { id } = useParams();
-
     const { Title, Paragraph } = Typography;
 
-    const {book, error, loading} = useTypedSelector(state => state.bookItem)
-    const {fetchBookItem} = useActions()
+    const {data: book, error, isLoading, refetch} = bookAPI.useFetchBookByIdQuery(id || '')
 
-    useEffect(() => {
-        fetchBookItem(id)
-    }, [])
-
-    if (loading) {
+    if (isLoading) {
         return <Loader />
     }
     if (error) {

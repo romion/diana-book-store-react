@@ -5,7 +5,7 @@ import styles from './Loader.module.css'
 const Loader = () => {
     return (
         <div className={styles.loader}>
-            <Spin className={styles.spin} />Loading...
+            <Spin className={styles.spinner} />Loading...
         </div>
     );
 };

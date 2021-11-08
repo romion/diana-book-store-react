@@ -6,8 +6,9 @@ import BookList from "./components/books/book-list/BookList";
 import 'antd/dist/antd.css';
 import './styles.css'
 import Checkout from "./components/checkout/Checkout";
-import HeaderPanel from "./shared/header-panel/HeaderPanel";
+import HeaderPanel from "./shared/components/header-panel/HeaderPanel";
 import BookItem from "./components/books/book-item/BookItem";
+import BookCreate from "./components/books/book-create/BookCreate";
 
 const { Header, Content, Footer } = Layout;
 
@@ -20,6 +21,7 @@ const App = () => {
                     <div className="site-layout-content">
                         <Routes>
                             <Route path="/" element={<BookList />} />
+                            <Route path="/book/create" element={<BookCreate />} />
                             <Route path="/book/:id" element={<BookItem />} />
                             <Route path="/checkout" element={<Checkout />} />
                         </Routes>

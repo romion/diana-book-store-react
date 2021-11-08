@@ -5,6 +5,6 @@
     border-radius: 4px;
 }
 
-.spin {
-    margin-right: 20px;
+.spinner {
+    margin-right: 10px !important;
 }
