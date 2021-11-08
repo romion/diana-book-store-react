@@ -1,38 +1,35 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {bookAPI} from "../../../shared/services/BookService";
 import {useNavigate} from 'react-router-dom';
-import { Card, Typography, Row, Col } from 'antd';
+import {Card, Typography, Row, Col, Button} from 'antd';
 import './BookList.css'
-import {Link} from "react-router-dom";
 import Loader from "../../../shared/components/loader/Loader";
-import {IBook} from "../../../shared/interfaces/IBook";
 
 
 const BookList = () => {
     let navigate = useNavigate()
-    const { Meta } = Card
-    const { Title, Paragraph } = Typography
+    const { Title } = Typography
     const pages = [1, 2, 3, 4, 5]
 
     const [page, setPage] = useState(1);
 
-    const {data: books, error, isLoading, refetch} =  bookAPI.useFetchAllBooksQuery([page, 10])
-    const [createBook, {}] = bookAPI.useCreateBookMutation()
-    const [updateBook, {}] = bookAPI.useUpdateBookMutation()
-    const [deleteBook, {}] = bookAPI.useDeleteBookMutation()
+    const {data: books, error, isLoading} =  bookAPI.useFetchAllBooksQuery([page, 10])
+    // const [createBook, {}] = bookAPI.useCreateBookMutation()
+    // const [updateBook, {}] = bookAPI.useUpdateBookMutation()
+    // const [deleteBook, {}] = bookAPI.useDeleteBookMutation()
 
     // const handleCreate = async () => {
     //     const title = prompt()
     //     await createBook({title, body: title} as IBook)
     // }
 
-    const handleRemove = (book: IBook) => {
-        deleteBook(book)
-    }
-
-    const handleUpdate = (book: IBook) => {
-        updateBook(book)
-    }
+    // const handleRemove = (book: IBook) => {
+    //     deleteBook(book)
+    // }
+    //
+    // const handleUpdate = (book: IBook) => {
+    //     updateBook(book)
+    // }
 
     if (isLoading) {
         return <Loader />
@@ -81,6 +78,7 @@ const BookList = () => {
                     </div>
                 )}
             </div>
+            <Button onClick={() => navigate('/private')}>Private</Button>
         </div>
     );
 };

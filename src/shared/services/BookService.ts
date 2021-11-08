@@ -1,10 +1,7 @@
-import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
 import {IBook, IBookResponse} from "../interfaces/IBook";
+import {api} from "./api";
 
-export const bookAPI = createApi({
-    reducerPath: 'bookAPI',
-    baseQuery: fetchBaseQuery({baseUrl: 'https://di-shop.pp.ua:3000/api'}),
-    tagTypes: ['Book'],
+export const bookAPI = api.injectEndpoints({
     endpoints: (build) => ({
         fetchAllBooks: build.query<IBookResponse, number[]>({
             query: (params) => ({
@@ -17,7 +14,7 @@ export const bookAPI = createApi({
             query: (id: string) => ({
                 url: `/books/${id}`
             }),
-            providesTags: result => ['Book']
+            providesTags: ['Book']
         }),
         createBook: build.mutation<IBook, IBook>({
             query: (book) => ({

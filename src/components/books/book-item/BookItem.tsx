@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useParams} from "react-router-dom";
 import {Typography, Tag} from "antd";
 import './BookItem.css'
@@ -7,9 +7,9 @@ import {bookAPI} from "../../../shared/services/BookService";
 
 const BookItem = () => {
     let { id } = useParams();
-    const { Title, Paragraph } = Typography;
+    const { Title } = Typography;
 
-    const {data: book, error, isLoading, refetch} = bookAPI.useFetchBookByIdQuery(id || '')
+    const {data: book, error, isLoading} = bookAPI.useFetchBookByIdQuery(id || '')
 
     if (isLoading) {
         return <Loader />
@@ -26,7 +26,7 @@ const BookItem = () => {
                 <ul>
                     <li><strong>Author:</strong> {book?.author}</li>
                     <li><strong>Genre:</strong> {book?.genre.map(g =>
-                        <Tag>{g}</Tag>
+                        <Tag key={g}>{g}</Tag>
                     )}</li>
                     <li><strong>Pages:</strong> {book?.pages}</li>
                     <li><strong>Price:</strong> ${book?.price}</li>

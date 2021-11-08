@@ -1,31 +1,33 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {RootState} from "../../store/store";
-import {LoginRequest, UserResponse} from "../interfaces/IUser";
+import {ILoginRequest, IUser, IUserResponse} from "../interfaces/IUser";
 
-export const authAPI = createApi({
+export const api = createApi({
     baseQuery: fetchBaseQuery({
-        baseUrl: '/',
+        baseUrl: 'https://di-shop.pp.ua:3000/api',
         prepareHeaders: (headers, { getState }) => {
             // By default, if we have a token in the store, let's use that for authenticated requests
-            const token = (getState() as RootState).auth.token
+            let token = (getState() as RootState).auth.token || localStorage.getItem('token')
+
             if (token) {
                 headers.set('authorization', `Bearer ${token}`)
             }
             return headers
         },
     }),
+    tagTypes: ['Book'],
     endpoints: (builder) => ({
-        login: builder.mutation<UserResponse, LoginRequest>({
+        login: builder.mutation<IUserResponse, ILoginRequest>({
             query: (credentials) => ({
-                url: 'login',
+                url: '/auth/login',
                 method: 'POST',
                 body: credentials,
             }),
         }),
-        protected: builder.mutation<{ message: string }, void>({
-            query: () => 'protected',
-        }),
+        me: builder.query<IUser, void>({
+            query: () => ({
+                url: '/auth/me'
+            })
+        })
     }),
 })
-
-export const { useLoginMutation, useProtectedMutation } = authAPI

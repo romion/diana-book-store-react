@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Layout } from 'antd';
 import BookList from "./components/books/book-list/BookList";
 
@@ -9,16 +9,15 @@ import Checkout from "./components/checkout/Checkout";
 import HeaderPanel from "./shared/components/header-panel/HeaderPanel";
 import BookItem from "./components/books/book-item/BookItem";
 import BookCreate from "./components/books/book-create/BookCreate";
-import {ProtectedComponent} from "./shared/Protected";
 import PrivateRoute from "./shared/PrivateRoute";
+import Login from "./shared/components/login/Login";
 
-const { Header, Content, Footer } = Layout;
+const { Content, Footer } = Layout;
 
 const Hooray = () => {
     return (
         <>
             <p>Hooray you logged in!</p>
-            <ProtectedComponent />
         </>
     )
 }
@@ -35,6 +34,7 @@ const App = () => {
                             <Route path="/book/create" element={<BookCreate />} />
                             <Route path="/book/:id" element={<BookItem />} />
                             <Route path="/checkout" element={<Checkout />} />
+                            <Route path="/login" element={<Login />} />
                             <Route
                                 path="/private"
                                 element={<PrivateRoute><Hooray /></PrivateRoute>}

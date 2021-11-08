@@ -1,22 +1,37 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import {User} from "../interfaces/IUser";
+import {IUser, IUserToken} from "../interfaces/IUser";
 import {RootState} from "../../store/store";
 
 type AuthState = {
-    user: User | null
+    user: IUser | null
     token: string | null
+}
+
+const getCashedState = (): AuthState => {
+    const cachedUserInfo = localStorage.getItem('user')
+    const cachedToken = localStorage.getItem('token')
+
+    if (!cachedUserInfo || !cachedToken) {
+        return { user: null, token: null }
+    } else {
+        return { user: JSON.parse(cachedUserInfo), token: cachedToken }
+    }
 }
 
 const slice = createSlice({
     name: 'auth',
-    initialState: { user: null, token: null } as AuthState,
+    initialState: getCashedState(),
     reducers: {
         setCredentials: (
             state,
-            { payload: { user, token } }: PayloadAction<{ user: User; token: string }>
+            { payload: { user, token } }: PayloadAction<{ user: IUser; token: IUserToken }>
         ) => {
             state.user = user
-            state.token = token
+            state.token = token.accessToken
+            localStorage.setItem("user", JSON.stringify(user))
+            localStorage.setItem("token", token.accessToken)
+            console.log(state.user);
+            console.log(state.token);
         },
     },
 })

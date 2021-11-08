@@ -1,11 +1,11 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import {bookAPI} from "../shared/services/BookService";
-import {authAPI} from "../shared/services/AuthService";
+import {api} from "../shared/services/api";
 import authReducer from '../shared/slices/authSlice'
 
 const rootReducer = combineReducers({
+    [api.reducerPath]: api.reducer,
     [bookAPI.reducerPath]: bookAPI.reducer,
-    [authAPI.reducerPath]: authAPI.reducer,
     auth: authReducer,
 })
 
@@ -14,7 +14,10 @@ export const setupStore = () => {
         reducer: rootReducer,
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware()
-                .concat(bookAPI.middleware)
+                .concat(
+                    api.middleware,
+                    bookAPI.middleware
+                )
     })
 }
 
