@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import {bookAPI} from "../../../shared/services/BookService";
 import {useNavigate} from 'react-router-dom';
-import {Card, Typography, Row, Col, Button} from 'antd';
+import {Card, Typography, Row, Col} from 'antd';
 import './BookList.css'
 import Loader from "../../../shared/components/loader/Loader";
+import ContainerLayout from "../../../shared/components/layouts/ContainerLayout";
+import ErrorDisplay from "../../../shared/components/error-display/ErrorDisplay";
 
 
 const BookList = () => {
@@ -31,13 +33,6 @@ const BookList = () => {
     //     updateBook(book)
     // }
 
-    if (isLoading) {
-        return <Loader />
-    }
-    if (error) {
-        return <h1>{error}</h1>
-    }
-
     const navigateToBook = (id: string | undefined): void => {
         if (id) {
             navigate('/book/' + id)
@@ -45,41 +40,44 @@ const BookList = () => {
     }
 
     return (
-        <div>
-            <Row wrap={true} gutter={[16, 16]}>
-            {books?.data?.map(book =>
-                <Col className="book-column" span={4} key={book.id} lg={4} md={6} sm={12} xs={24}>
-                    <Card
-                        onClick={() => navigateToBook(book.id)}
-                        className="book-card"
-                        hoverable
-                        cover={
-                            <div className="book-picture" style={{ backgroundImage: `url(${book.picture})` }}></div>
-                        }
-                    >
-                        <Title level={4}>{book.name}</Title>
-                        <p>
-                            <strong>Author:</strong> {book.author}<br/>
-                            <strong>Pages:</strong> {book.pages}<br/>
-                            <strong>Price:</strong> ${book.price}
-                        </p>
-                    </Card>
-                </Col>
-            )}
-            </Row>
-            <div style={{display: "flex"}}>
-                {pages.map(p =>
-                    <div
-                        onClick={() => setPage(p)}
-                        key={p}
-                        style={{border:p === page ? '2px solid green' : '1px solid gray', padding: 10, cursor: 'pointer'}}
-                    >
-                        {p}
-                    </div>
-                )}
-            </div>
-            <Button onClick={() => navigate('/private')}>Private</Button>
-        </div>
+        <ContainerLayout>
+            {isLoading && <Loader />}
+            {error && <ErrorDisplay errorMessage={JSON.stringify(error)} />}
+            {!isLoading && !error &&
+                <Row wrap={true} gutter={[16, 16]}>
+                    {books?.data?.map(book =>
+                        <Col className="book-column" span={4} key={book.id} lg={4} md={6} sm={12} xs={24}>
+                            <Card
+                                onClick={() => navigateToBook(book.id)}
+                                className="book-card"
+                                hoverable
+                                cover={
+                                    <div className="book-picture" style={{backgroundImage: `url(${book.picture})`}}></div>
+                                }
+                            >
+                                <Title level={4}>{book.name}</Title>
+                                <p>
+                                    <strong>Author:</strong> {book.author}<br/>
+                                    <strong>Pages:</strong> {book.pages}<br/>
+                                    <strong>Price:</strong> ${book.price}
+                                </p>
+                            </Card>
+                        </Col>
+                    )}
+                </Row>
+            }
+            {/*<div style={{display: "flex"}}>*/}
+            {/*    {pages.map(p =>*/}
+            {/*        <div*/}
+            {/*            onClick={() => setPage(p)}*/}
+            {/*            key={p}*/}
+            {/*            style={{border:p === page ? '2px solid green' : '1px solid gray', padding: 10, cursor: 'pointer'}}*/}
+            {/*        >*/}
+            {/*            {p}*/}
+            {/*        </div>*/}
+            {/*    )}*/}
+            {/*</div>*/}
+        </ContainerLayout>
     );
 };
 

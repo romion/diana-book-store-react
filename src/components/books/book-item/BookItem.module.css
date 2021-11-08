@@ -1,16 +1,16 @@
-.book-container {
+.bookContainer {
     display: flex;
 }
 
-.book-container img {
-    height: 300px;
+.bookImage {
+    width: 260px;
 }
 
-.book-info {
+.bookInfo {
     margin-left: 20px;
 }
 
-.book-info ul {
+.bookInfo ul {
     list-style-type: none;
     padding: 0;
 }

@@ -1,14 +1,13 @@
-import {useAuth} from "../hooks/useAuth";
+import {useAuth} from "../../../hooks/useAuth";
 import {useNavigate} from "react-router-dom";
 import React, {FC} from "react";
 import {Button, Result} from "antd";
 
-type ButtonProps = {
+type Props = {
     children: any;
-
 }
 
-const PrivateRoute: FC<ButtonProps> = ({ children }) => {
+const PrivateRoute: FC<Props> = ({ children }) => {
     const navigate = useNavigate()
     const auth = useAuth()
 

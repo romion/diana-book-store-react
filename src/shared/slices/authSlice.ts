@@ -24,14 +24,17 @@ const slice = createSlice({
     reducers: {
         setCredentials: (
             state,
-            { payload: { user, token } }: PayloadAction<{ user: IUser; token: IUserToken }>
+            { payload: { user, token } }: PayloadAction<{ user: IUser | null; token: IUserToken | null }>
         ) => {
             state.user = user
-            state.token = token.accessToken
-            localStorage.setItem("user", JSON.stringify(user))
-            localStorage.setItem("token", token.accessToken)
-            console.log(state.user);
-            console.log(state.token);
+            state.token = token ? token.accessToken : null
+            if (!token || !user) {
+                localStorage.removeItem('user')
+                localStorage.removeItem('token')
+            } else {
+                localStorage.setItem('user', JSON.stringify(user))
+                localStorage.setItem('token', token.accessToken)
+            }
         },
     },
 })

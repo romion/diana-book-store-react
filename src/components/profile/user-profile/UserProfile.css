@@ -1,0 +1,32 @@
+.profile-card .ant-card-body {
+    display: flex;
+    align-items: center;
+}
+
+.user-picture {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: #ccc;
+    background-size: cover;
+    background-position: center center;
+    margin-right: 40px;
+}
+
+.user-picture__placeholder svg {
+    width: 100px;
+    height: 100px;
+    color: #fff;
+}
+
+.user-info {
+    flex: 1;
+}
+
+.user-info ul {
+    list-style-type: none;
+    padding: 0;
+}
